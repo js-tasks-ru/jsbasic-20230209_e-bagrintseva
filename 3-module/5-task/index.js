@@ -8,14 +8,7 @@ function getMinMax(str) {
 			return Number(elem);
 		});
 	return {
-		min: getMinOfArray(arr),
-		max: getMaxOfArray(arr),
+		min: Math.min(...arr),
+		max: Math.max(...arr),
 	};
-}
-
-function getMaxOfArray(numArray) {
-	return Math.max.apply(null, numArray);
-}
-function getMinOfArray(numArray) {
-	return Math.min.apply(null, numArray);
 }
