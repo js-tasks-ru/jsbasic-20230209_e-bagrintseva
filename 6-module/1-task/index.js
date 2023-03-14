@@ -14,12 +14,19 @@
  */
 export default class UserTable {
 	constructor(rows) {
+		this.rows = rows;
+
+		this.render();
+	}
+
+	render() {
 		this.tbody = document.createElement('tbody');
-		for (let i = 0; i < rows.length; i++) {
-			this.name = rows[i].name;
-			this.age = rows[i].age;
-			this.salary = rows[i].salary;
-			this.city = rows[i].city;
+
+		for (let i = 0; i < this.rows.length; i++) {
+			this.name = this.rows[i].name;
+			this.age = this.rows[i].age;
+			this.salary = this.rows[i].salary;
+			this.city = this.rows[i].city;
 
 			this.tr = document.createElement('tr');
 			this.tdButton = document.createElement('td');
