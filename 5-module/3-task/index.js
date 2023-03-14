@@ -12,29 +12,28 @@ function initCarousel() {
 
 	function slideChange(event) {
 		const activeSlide = carousel.querySelector('.active');
-		
+
 		let width = slides[0].offsetWidth;
 		let k;
 
 		for (let i = 0; i < slides.length; i++) {
 			if (slides[i].classList.contains('active')) {
-				k = i 
+				k = i;
 			}
 		}
 
 		if (event.target.closest('.carousel__arrow_right')) {
-			if (slides[2].classList.contains('active')) {
+			if (slides[slides.length - 2].classList.contains('active')) {
 				hideElem(rightButton);
 			} else {
 				showElem(rightButton);
 			}
 			showElem(leftButton);
-			
+
 			removeActiveForAllSlides();
 
 			activeSlide.nextElementSibling.classList.add('active');
 			wrapper.style.transform = `translateX(-${width * (k + 1)}px)`;
-
 		} else if (event.target.closest('.carousel__arrow_left')) {
 			if (slides[1].classList.contains('active')) {
 				hideElem(leftButton);
@@ -48,7 +47,6 @@ function initCarousel() {
 			activeSlide.previousElementSibling.classList.add('active');
 			wrapper.style.transform = `translateX(-${width * (k - 1)}px)`;
 		}
-		console.log(getComputedStyle(wrapper).transform)
 	}
 
 	function removeActiveForAllSlides() {
@@ -58,10 +56,10 @@ function initCarousel() {
 	}
 
 	function showElem(elem) {
-		elem.style.display = ''
+		elem.style.display = '';
 	}
 
 	function hideElem(elem) {
-		elem.style.display = 'none'
+		elem.style.display = 'none';
 	}
 }
