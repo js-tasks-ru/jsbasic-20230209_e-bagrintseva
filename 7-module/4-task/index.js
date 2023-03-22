@@ -134,3 +134,4 @@ export default class StepSlider {
 			document.addEventListener('pointerup', this.pointerUp);
 		});
 	}
+ }
