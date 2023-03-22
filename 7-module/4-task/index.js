@@ -134,9 +134,3 @@ export default class StepSlider {
 			document.addEventListener('pointerup', this.pointerUp);
 		});
 	}
-=======
-export default class StepSlider {
-  constructor({ steps, value = 0 }) {
-  }
-
-}
