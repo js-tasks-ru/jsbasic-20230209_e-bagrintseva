@@ -1,4 +1,3 @@
-
 import createElement from '../../assets/lib/create-element.js';
 
 export default class StepSlider {
@@ -134,4 +133,4 @@ export default class StepSlider {
 			document.addEventListener('pointerup', this.pointerUp);
 		});
 	}
- }
+}
