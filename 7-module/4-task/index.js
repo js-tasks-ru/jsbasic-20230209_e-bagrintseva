@@ -82,19 +82,19 @@ export default class StepSlider {
 	};
 
 	pointerUp = () => {
-		this.elem.classList.remove('slider_dragging');
-		if (event.target.closest('.slider__thumb')) {
-			this.thumb.style.position = '';
-		}
-		this.up = true;
-		this.changeValue();
-
 		this.elem.dispatchEvent(
 			new CustomEvent('slider-change', {
 				detail: this.value,
 				bubbles: true,
 			})
 		);
+
+		this.elem.classList.remove('slider_dragging');
+		if (event.target.closest('.slider__thumb')) {
+			this.thumb.style.position = '';
+		}
+		this.up = true;
+		this.changeValue();
 
 		document.removeEventListener('pointermove', this.pointerMove);
 		document.removeEventListener('pointerup', this.pointerUp);
@@ -111,6 +111,7 @@ export default class StepSlider {
 			this.up = true;
 
 			this.changeValue();
+
 			this.elem.dispatchEvent(
 				new CustomEvent('slider-change', {
 					detail: this.value,
@@ -129,7 +130,6 @@ export default class StepSlider {
 			}
 
 			document.addEventListener('pointermove', this.pointerMove);
-
 			document.addEventListener('pointerup', this.pointerUp);
 		});
 	}
