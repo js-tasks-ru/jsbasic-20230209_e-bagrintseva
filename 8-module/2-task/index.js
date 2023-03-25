@@ -21,132 +21,49 @@ export default class ProductGrid {
 	}
 
 	updateFilter(filters) {
-		// console.log(this.filters);
-
 		Object.assign(this.filters, filters);
 
-		this.filteredProducts = [];
-
-		let showProducts = () => {
-			for (let product of this.filteredProducts) {
+		let showProducts = (array) => {
+			this.elem.replaceChildren();
+			for (let product of array) {
 				let item = new ProductCard(product);
 
 				this.elem.append(item.elem);
 			}
 		};
+		let array = [];
 
-		// showProducts();
-
-		function isEmpty(obj) {
-			for (let key in obj) {
-				// если тело цикла начнет выполняться - значит в объекте есть свойства
-				return false;
-			}
-			return true;
-		}
-
-		this.products
-			// .map((product) => {
-			// this.filteredProducts = [];
-			// return product;
-
-			// if (isEmpty(this.filters)) {
-			// 	this.filteredProducts.push(product);
-
-			// 	console.log(this.filteredProducts);
-			// }
-			// })
-			// .filter((product) => {
-			// 	if (isEmpty(this.filters)) {
-			// 		this.filteredProducts.push(product);
-
-			// 		console.log(this.filteredProducts);
-			// 	}
-			// })
-			.filter((product) => {
+		let final = () => {
+			this.products.filter((product) => {
 				if (this.filters.noNuts) {
-					if (!product.nuts) {
-						// this.filteredProducts.push(product);
-						this.filteredProducts.push(product);
-					}
-
-					// console.log(this.filteredProducts);
-				}
-				if (this.filters.vegeterianOnly) {
-					if (product.vegeterian) {
-						// this.filteredProducts.push(product);
-						console.log(product);
+					if (product.nuts) {
 						return product;
 					}
-
-					// console.log(this.filteredProducts);
 				}
-				// if (this.filters.maxSpiciness) {
-				// 	if (product.spiciness <= this.filters.maxSpiciness) {
-				// 		this.filteredProducts.push(product);
-				// 	}
+				if (this.filters.vegeterianOnly) {
+					if (!product.vegeterian) {
+						return product;
+					}
+				}
+				if (this.filters.maxSpiciness) {
+					if (product.spiciness > this.filters.maxSpiciness) {
+						return product;
+					}
+				}
+				if (this.filters.category) {
+					if (product.category !== this.filters.category) {
+						return product;
+					}
+				}
 
-				// 	// console.log(this.filteredProducts);
-				// }
-				// if (this.filters.category) {
-				// 	if (product.category === this.filters.category) {
-				// 		this.filteredProducts.push(product);
-				// 	}
-				// 	// console.log(this.filteredProducts);
-				// }
-				console.log(this.filteredProducts);
-
-				// return this.filteredProducts;
+				array.push(product);
 			});
-		Object.assign(this.filters, {});
 
-		showProducts();
+			return array;
+		};
+		let result = final();
 
-		// if (this.filters.noNuts) {
-		// 	this.products
-		// 		.map((product) => {
-		// 			return product;
-		// 		})
-		// 		.filter((product) => {
-		// 			if (!product.nuts) {
-		// 				filteredProducts.push(product);
-		// 			}
-
-		// 			console.log(filteredProducts);
-		// 		});
-		// 	showProducts();
-		// }
-
-		// if (this.filters.vegeterianOnly) {
-		// 	this.products.filter((product) => {
-		// 		if (product.vegeterian) {
-		// 			filteredProducts.push(product);
-		// 		}
-
-		// 		console.log(filteredProducts);
-		// 	});
-		// 	showProducts();
-		// }
-
-		// if (this.filters.maxSpiciness) {
-		// 	this.products.filter((product) => {
-		// 		if (product.spiciness <= this.filters.maxSpiciness) {
-		// 			filteredProducts.push(product);
-		// 		}
-
-		// 		console.log(filteredProducts);
-		// 	});
-		// 	showProducts();
-		// }
-
-		// if (this.filters.category) {
-		// 	this.products.filter((product) => {
-		// 		if (product.category === this.filters.category) {
-		// 			filteredProducts.push(product);
-		// 		}
-		// 	});
-		// 	showProducts();
-		// }
-		// console.log(this.filters);
+		showProducts(result);
+		Object.assign(this.filters, '');
 	}
 }
