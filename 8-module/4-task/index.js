@@ -208,8 +208,8 @@ export default class Cart {
         </div>
         `);
 
-				this.modal.setTitle('Success!');
 				this.cartItems = [];
+				this.modal.setTitle('Success!');
 				this.modal.setBody(successBody);
 			}
 		});
