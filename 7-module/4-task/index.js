@@ -120,7 +120,7 @@ export default class StepSlider {
 			);
 		});
 
-		document.addEventListener('pointerdown', (evt) => {
+		this.elem.addEventListener('pointerdown', (evt) => {
 			if (evt.type === 'pen' || evt.type === 'touch') {
 				evt.preventDefault();
 			}
