@@ -153,7 +153,6 @@ export default class Cart {
 
 		this.form = this.body.querySelector('.cart-form');
 		this.form.addEventListener('submit', (event) => {
-			event.preventDefault();
 			this.onSubmit(event);
 		});
 
@@ -189,6 +188,7 @@ export default class Cart {
 	}
 
 	onSubmit(event) {
+		event.preventDefault();
 		let btn = this.form.querySelector('button[type="submit"]');
 		let data = new FormData(this.form);
 		btn.classList.add('is-loading');
