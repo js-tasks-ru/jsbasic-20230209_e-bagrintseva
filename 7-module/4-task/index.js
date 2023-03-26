@@ -120,14 +120,12 @@ export default class StepSlider {
 			);
 		});
 
-		this.elem.addEventListener('pointerdown', (evt) => {
+		this.elem.querySelector('.slider__thumb').addEventListener('pointerdown', (evt) => {
 			if (evt.type === 'pen' || evt.type === 'touch') {
 				evt.preventDefault();
 			}
-			if (evt.target.closest('.slider__thumb')) {
-				this.thumb.style.position = 'absolute';
-				this.elem.classList.add('slider_dragging');
-			}
+			this.thumb.style.position = 'absolute';
+			this.elem.classList.add('slider_dragging');
 
 			document.addEventListener('pointermove', this.pointerMove);
 			document.addEventListener('pointerup', this.pointerUp);
