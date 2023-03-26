@@ -33,6 +33,8 @@ export default class Cart {
 			if (cartItem) {
 				if (cartItem.product.id == productId) {
 					cartItem.count += amount;
+					this.onProductUpdate(cartItem);
+
 					if (cartItem.count === 0) {
 						let index = this.cartItems.indexOf(cartItem);
 						this.cartItems.splice(index, 1);
@@ -42,9 +44,6 @@ export default class Cart {
 			}
 			return;
 		});
-
-		this.onProductUpdate(cartItem);
-		this.getTotalPrice();
 	}
 
 	isEmpty() {
@@ -57,6 +56,7 @@ export default class Cart {
 
 	getTotalCount() {
 		let count = 0;
+
 		this.cartItems.find((item) => {
 			count += item.count;
 		});
