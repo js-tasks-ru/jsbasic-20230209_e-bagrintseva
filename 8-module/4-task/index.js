@@ -152,7 +152,7 @@ export default class Cart {
 		});
 
 		this.form = this.body.querySelector('.cart-form');
-		this.form.addEventListener('submit', (event) => {
+		this.form.addEventListener('submit', () => {
 			this.onSubmit(event);
 		});
 
@@ -189,28 +189,32 @@ export default class Cart {
 
 	onSubmit(event) {
 		event.preventDefault();
+
 		let btn = this.form.querySelector('button[type="submit"]');
-		let data = new FormData(this.form);
 		btn.classList.add('is-loading');
 
 		fetch('https://httpbin.org/post', {
 			method: 'POST',
-			body: data,
+			body: new FormData(this.form),
 		}).then((response) => {
 			if (response.ok) {
 				let successBody = createElement(`
-        <div class="modal__body-inner">
-          <p>
-            Order successful! Your order is being cooked :) <br>
-            We’ll notify you about delivery time shortly.<br>
-            <img src="/assets/images/delivery.gif">
-          </p>
-        </div>
+          <div class="modal__body-inner">
+            <p>
+              Order successful! Your order is being cooked :) <br>
+              We’ll notify you about delivery time shortly.<br>
+              <img src="/assets/images/delivery.gif">
+            </p>
+          </div>
         `);
 
 				this.modal.setTitle('Success!');
-				this.cartItems = [];
+				this.cartItems.length = 0;
+				this.cartIcon.update(this);
 				this.modal.setBody(successBody);
+				return;
+			} else {
+				return;
 			}
 		});
 	}
