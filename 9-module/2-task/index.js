@@ -49,7 +49,7 @@ export default class Main {
 				productsGrid.updateFilter({
 					noNuts: document.getElementById('nuts-checkbox').checked,
 					vegeterianOnly: document.getElementById('vegeterian-checkbox').checked,
-					maxSpiciness: +stepSlider.value,
+					maxSpiciness: stepSlider.value,
 					category: ribbonMenu.value,
 				});
 			}
@@ -65,7 +65,7 @@ export default class Main {
 			});
 
 			sliderlHolder.addEventListener('slider-change', () => {
-				productsGrid.updateFilter({maxSpiciness: stepSlider.value});
+				productsGrid.updateFilter({maxSpiciness: event.detail});
 			});
 
 			ribbonlHolder.addEventListener('ribbon-select', () => {

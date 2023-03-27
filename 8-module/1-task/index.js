@@ -21,8 +21,6 @@ export default class CartIcon {
           <span class="cart-icon__price">€${cart.getTotalPrice().toFixed(2)}</span>
         </div>`;
 
-			this.updatePosition();
-
 			this.elem.classList.add('shake');
 			this.elem.addEventListener(
 				'transitionend',
@@ -31,6 +29,8 @@ export default class CartIcon {
 				},
 				{once: true}
 			);
+
+			this.updatePosition();
 		} else {
 			this.elem.classList.remove('cart-icon_visible');
 		}
