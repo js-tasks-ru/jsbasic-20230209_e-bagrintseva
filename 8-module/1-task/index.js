@@ -41,7 +41,7 @@ export default class CartIcon {
 		window.addEventListener('resize', () => this.updatePosition());
 	}
 
-	updatePosition() {
+	updatePosition = () => {
 		let container = document.querySelector('.container');
 		let spaceLeft = container.getBoundingClientRect().right + 20;
 		let spaceRight = document.documentElement.clientWidth - this.elem.offsetWidth - 10;
@@ -63,5 +63,5 @@ export default class CartIcon {
 				});
 			}
 		}
-	}
+	};
 }
