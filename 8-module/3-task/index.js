@@ -27,8 +27,6 @@ export default class Cart {
 	}
 
 	updateProductCount(productId, amount) {
-		let cartItem;
-
 		this.cartItems.find((cartItem) => {
 			if (cartItem) {
 				if (cartItem.product.id == productId) {

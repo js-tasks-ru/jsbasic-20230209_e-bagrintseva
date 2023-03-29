@@ -24,11 +24,11 @@ export default class ProductGrid {
 		Object.assign(this.filters, filters);
 
 		let showProducts = (array) => {
-			this.elem.replaceChildren();
+			this.elem.querySelector('.products-grid__inner').replaceChildren();
 			for (let product of array) {
 				let item = new ProductCard(product);
 
-				this.elem.append(item.elem);
+				this.elem.querySelector('.products-grid__inner').append(item.elem);
 			}
 		};
 		let array = [];
@@ -45,8 +45,8 @@ export default class ProductGrid {
 						return product;
 					}
 				}
-				if (this.filters.maxSpiciness) {
-					if (product.spiciness > this.filters.maxSpiciness) {
+				if (this.filters.maxSpiciness || this.filters.maxSpiciness === 0) {
+					if (this.filters.maxSpiciness < product.spiciness) {
 						return product;
 					}
 				}

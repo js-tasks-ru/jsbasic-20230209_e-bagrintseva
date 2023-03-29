@@ -7,6 +7,7 @@ export default class StepSlider {
 
 		this.render();
 		this.addEventListeners();
+		this.startValue();
 	}
 
 	render() {
@@ -37,10 +38,19 @@ export default class StepSlider {
 		return this.elem;
 	}
 
+	startValue() {
+		this.sliderThumb = this.elem.querySelector('.slider__thumb');
+		this.sliderProgress = this.elem.querySelector('.slider__progress');
+
+		let startWidth = (this.value / (this.steps - 1)) * 100;
+
+		this.sliderProgress.style.width = `${startWidth}%`;
+		this.sliderSteps[this.value].classList.add('slider__step-active');
+		this.sliderThumb.style.left = `${startWidth}%`;
+	}
+
 	changeValue() {
-		let sliderThumb = this.elem.querySelector('.slider__thumb');
 		let sliderValue = this.elem.querySelector('.slider__value');
-		let sliderProgress = this.elem.querySelector('.slider__progress');
 
 		let segments = this.steps - 1;
 
@@ -64,8 +74,8 @@ export default class StepSlider {
 		}
 
 		sliderValue.textContent = this.value;
-		sliderThumb.style.left = `${valuePercents}%`;
-		sliderProgress.style.width = `${valuePercents}%`;
+		this.sliderThumb.style.left = `${valuePercents}%`;
+		this.sliderProgress.style.width = `${valuePercents}%`;
 		this.sliderSteps.forEach((sliderStep) => {
 			sliderStep.classList.remove('slider__step-active');
 		});
@@ -105,7 +115,6 @@ export default class StepSlider {
 		this.sliderSteps = this.elem.querySelectorAll('.slider__steps span');
 
 		this.thumb.ondragstart = () => false;
-		this.sliderSteps[0].classList.add('slider__step-active');
 
 		this.elem.addEventListener('click', (event) => {
 			this.up = true;
