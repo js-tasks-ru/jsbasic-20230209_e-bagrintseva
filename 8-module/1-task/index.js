@@ -42,26 +42,71 @@ export default class CartIcon {
 	}
 
 	updatePosition = () => {
-		let container = document.querySelector('.container');
-		let spaceLeft = container.getBoundingClientRect().right + 20;
-		let spaceRight = document.documentElement.clientWidth - this.elem.offsetWidth - 10;
+		if (!this.elem.offsetHeight) {
+			return;
+		}
 
-		if (this.elem.offsetWidth > 0 && this.elem.offsetHeight > 0 && document.documentElement.clientWidth > 767) {
-			if (document.documentElement.scrollTop > this.elem.offsetTop) {
-				let left = Math.min(spaceLeft, spaceRight);
+		if (!this.initialTopCoord) {
+			this.initialTopCoord = this.elem.getBoundingClientRect().top + window.pageYOffset;
+		}
 
-				Object.assign(this.elem.style, {
-					position: 'fixed',
-					left: `${left}px`,
-					zIndex: '100',
-				});
-			} else {
-				Object.assign(this.elem.style, {
-					position: '',
-					left: ``,
-					zIndex: '',
-				});
-			}
+		if (document.documentElement.clientWidth <= 767) {
+			this.resetPosition();
+			return;
+		}
+
+		let isHeaderCartScrolled = window.pageYOffset > this.initialTopCoord;
+
+		if (isHeaderCartScrolled) {
+			this.fixPosition();
+		} else {
+			this.resetPosition();
 		}
 	};
+
+	fixPosition() {
+		Object.assign(this.elem.style, {
+			position: 'fixed',
+			top: '50px',
+			zIndex: 1e3,
+			left:
+				Math.min(
+					document.querySelector('.container').getBoundingClientRect().right + 20,
+					document.documentElement.clientWidth - this.elem.offsetWidth - 10
+				) + 'px',
+		});
+	}
+
+	resetPosition() {
+		Object.assign(this.elem.style, {
+			position: '',
+			top: '',
+			left: '',
+			zIndex: '',
+		});
+	}
+
+	// updatePosition = () => {
+	// 	let container = document.querySelector('.container');
+	// 	let spaceLeft = container.getBoundingClientRect().right + 20;
+	// 	let spaceRight = document.documentElement.clientWidth - this.elem.offsetWidth - 10;
+
+	// 	if (this.elem.offsetWidth > 0 && this.elem.offsetHeight > 0 && document.documentElement.clientWidth > 767) {
+	// 		if (document.documentElement.scrollTop > this.elem.offsetTop) {
+	// 			let left = Math.min(spaceLeft, spaceRight);
+
+	// 			Object.assign(this.elem.style, {
+	// 				position: 'fixed',
+	// 				left: `${left}px`,
+	// 				zIndex: '100',
+	// 			});
+	// 		} else {
+	// 			Object.assign(this.elem.style, {
+	// 				position: '',
+	// 				left: ``,
+	// 				zIndex: '',
+	// 			});
+	// 		}
+	// 	}
+	// };
 }
